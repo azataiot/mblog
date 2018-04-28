@@ -21,22 +21,3 @@ A blog system written in flask that I developed when I study flask
   docker run -d -p 5000:5000 luislu/microblog
   ```
   Navigate to http://127.0.0.1:5000, and then use xx@xx.com/xx to login.
-
-## Contents
-
-  - **Complete user authentication(Register,Email Verification,Login,Forget/Reset Password)**
-  ![alt text](https://github.com/luisxiaomai/Images/blob/master/Flask_Study_App/login.png)
-
-  
-  - **Simple Blog System** 
-  ![alt text](https://github.com/luisxiaomai/Images/blob/master/Flask_Study_App/Blog_Lite.png)
-  
-  - **RichText Editor** 
-  ![alt text](https://github.com/luisxiaomai/Images/blob/master/Flask_Study_App/editor.png)
-  
-  - **Markdown Editor** 
-  ![alt text](https://github.com/luisxiaomai/Images/blob/master/Flask_Study_App/comments.png)
-  
-
- 
-
