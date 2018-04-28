@@ -36,13 +36,13 @@ def index():
 @login_required
 @admin_required
 def for_admins_only():
-    return "For administrators!"
+    return "Әкімшілер үшін!"
 
 @main.route('/moderator')
 @login_required
 @permission_required(Permission.MODERATE_COMMENTS)
 def for_moderators_only():
-    return "For comment moderators!"
+    return "Пікір модераторлар үшін!"
 
 @main.route("/user/<username>",methods=["GET","POST"])
 def user(username):
@@ -149,7 +149,7 @@ def follow(username):
         flash('Invalid user.')
         return redirect(url_for('main.index'))
     if current_user.is_following(user):
-        flash('You are already following this user.')
+        flash('Сіз бұл пайдаланушыны іздедіңіз.')
         return redirect(url_for('main.user', username=username))
     current_user.follow(user)
     return redirect(url_for('main.user', username=username))
@@ -161,10 +161,10 @@ def follow(username):
 def unfollow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        flash('Invalid user.')
+        flash('Жарамсыз пайдаланушы.')
         return redirect(url_for('.index'))
     if not current_user.is_following(user):
-        flash('You are not following this user.')
+        flash('Сіз бұл пайдаланушыны бақыламайсыз.')
         return redirect(url_for('.user', username=username))
     current_user.unfollow(user)
     return redirect(url_for('.user', username=username))
@@ -174,7 +174,7 @@ def unfollow(username):
 def followers(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        flash('Invalid user.')
+        flash('Жарамсыз пайдаланушы.')
         return redirect(url_for('.index'))
     page = request.args.get('page', 1, type=int)
     pagination = user.followers.paginate(
@@ -182,7 +182,7 @@ def followers(username):
         error_out=False)
     follows = [{'user': item.follower, 'timestamp': item.timestamp}
                for item in pagination.items]
-    return render_template('followers.html', user=user, title="Followers of",
+    return render_template('followers.html', user=user, title="Ізбасарлары",
                            endpoint='.followers', pagination=pagination,
                            follows=follows)
 
@@ -190,7 +190,7 @@ def followers(username):
 def followed_by(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        flash('Invalid user.')
+        flash('Жарамсыз пайдаланушы.')
         return redirect(url_for('.index'))
     page = request.args.get('page', 1, type=int)
     pagination = user.followed.paginate(
@@ -198,7 +198,7 @@ def followed_by(username):
         error_out=False)
     follows = [{'user': item.followed, 'timestamp': item.timestamp}
                for item in pagination.items]
-    return render_template('followers.html', user=user, title="Followed by",
+    return render_template('followers.html', user=user, title="Ілесуші",
                            endpoint='.followed_by', pagination=pagination,
                            follows=follows)
 

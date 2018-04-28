@@ -5,7 +5,7 @@
 
     {% include '_posts.html' %}
     <div class="post-tabs">
-        <h3 id="comments">{{pagination.total}} Comemnts</h3>
+        <h3 id="comments">{{pagination.total}} Пікірлер</h3>
     </div>
  
         
@@ -22,10 +22,10 @@
     {% else %}
     <div class="discussion-timeline-actions">
         <div class="flash flash-warn mt-3">
-            <a href="{{url_for('auth.register')}}" class="btn btn-success">Sign up for free</a>
-            <strong>to comment</strong>.
-            Already have an account?
-            <a href="{{url_for('auth.login')}}" >Sign in to comment.</a> Already login? <a href="{{url_for('main.user',username='Administrator')}}" >Please contact Administrator</a>
+            <a href="{{url_for('auth.register')}}" class="btn btn-success">Тіркелу тегін</a>
+            <strong>түсініктеме беру</strong>.
+            Тіркелгіңіз бар ма?
+            <a href="{{url_for('auth.login')}}" >Пікір қалдыру үшін кіріңіз.</a> Already login? <a href="{{url_for('main.user',username='Administrator')}}" >Әкімшіге хабарласыңыз</a>
         </div>
     </div>
     {% endif %}  

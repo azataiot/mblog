@@ -8,8 +8,8 @@
       <div class="container">
         <div class="row">
             <div class="site-heading">
-              <h1>Blog Lite</h1>
-              <span class="subheading">A clean, lite blog system to record your life</span>
+              <h1>Python блогы</h1>
+              <span class="subheading">Біздің блог-қа қош келдіңіз!</span>
             </div>
         </div>
       </div>
@@ -19,10 +19,10 @@
 {% block page_content %}
 <div class="post-tabs">
     <ul class="nav nav-tabs">
-        <li{% if not show_followed and not show_yours  %} class="active"{% endif %}><a href="{{ url_for('.show_all') }}">All</a></li>
+        <li{% if not show_followed and not show_yours  %} class="active"{% endif %}><a href="{{ url_for('.show_all') }}">Барлық</a></li>
         {% if current_user.is_authenticated %}
-            <li{% if show_followed %} class="active"{% endif %}><a href="{{ url_for('.show_followed') }}">Following</a></li>
-            <li{% if show_yours %} class="active"{% endif %}><a href="{{ url_for('.show_yours') }}">Your Posts</a></li>
+            <li{% if show_followed %} class="active"{% endif %}><a href="{{ url_for('.show_followed') }}">Кейін</a></li>
+            <li{% if show_yours %} class="active"{% endif %}><a href="{{ url_for('.show_yours') }}">Сіздің жазбаларыңыз</a></li>
 
         {% endif %}
     </ul>

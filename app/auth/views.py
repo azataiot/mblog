@@ -33,14 +33,14 @@ def login():
         if user is not None and user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
             return redirect(request.args.get("next") or url_for("main.index"))
-        loginError="Invalid emial or password"
+        loginError="Жарамсыз электрондық пошта немесе құпия сөз"
     return render_template("auth/login.html", form=form,loginError=loginError)
 
 @auth.route("/logout", methods=["GET","POST"])
 @login_required
 def logout():
     logout_user()
-    flash("You has been logged out.")
+    flash("Сіз шығып кеттіңіз.")
     return redirect(url_for("auth.login"))
 
 @auth.route("/register",  methods=["GET","POST"])
@@ -53,8 +53,8 @@ def register():
         db.session.add(user)
         db.session.commit()
         token = user.generate_confirmation_token()
-        send_email(user.email, "Confirm Your Account", "auth/email/confirm",user=user,token=token)
-        flash("A confirmation email has been sent to your email")
+        send_email(user.email, "Есептік жазбаңызды растау", "auth/email/confirm",user=user,token=token)
+        flash("Электрондық поштаңызға растау хаты жіберілді")
         return redirect(url_for("auth.login"))
     return render_template("auth/register.html", form=form)
 
@@ -64,17 +64,17 @@ def confirm(token):
     if current_user.confirmed:
         return redirect(url_for("main.index"))
     if current_user.confirm(token):
-        flash("You have confirmed your account.")
+        flash("Сіз өзіңіздің есептік жазбаңызды растадыңыз.")
     else:
-        flash("The confirmation link is invalid or has expired")
+        flash("Растау сілтемесі жарамсыз немесе мерзімі өтіп кеткен")
     return redirect(url_for("main.index"))
 
 @auth.route("/confirm",  methods=["GET","POST"])
 @login_required
 def resend_confirmation():
     token = current_user.generate_confirmation_token()
-    send_email(current_user.email, "Confirm Your Account", "auth/email/confirm",user=current_user,token=token)
-    flash("A new confirmation email has been sent to your email")
+    send_email(current_user.email, "Есептік жазбаңызды растау", "auth/email/confirm",user=current_user,token=token)
+    flash("Электрондық поштаңызға жаңа растау хаты жіберілді")
     return redirect(url_for("main.index"))
 
 
@@ -85,7 +85,7 @@ def change_password():
     if form.validate_on_submit():
         current_user.password = form.password.data
         db.session.add(current_user)
-        flash("Change password successfully")
+        flash("Құпия сөзді сәтті өзгертіңіз")
         return redirect(url_for("main.index"))
     return render_template("auth/changePassword.html", form=form)
 
@@ -96,7 +96,7 @@ def forget_password_request():
         user = User.query.filter_by(email=form.email.data).first()
         if user is not None:
             token = user.generate_resetPassword_token()
-            send_email(user.email, "Reset Your password", "auth/email/resetPassword",user=user,token=token)
+            send_email(user.email, "Құпия сөзіңізді қалпына келтіріңіз", "auth/email/resetPassword",user=user,token=token)
         return render_template('auth/forgetPassswordNotificationMessage.html',email=form.email.data)
     return render_template("auth/forgetPasswordRequest.html", form=form)
 
@@ -109,9 +109,9 @@ def reset_password(token):
             user.password = form.password.data
             db.session.add(user)
             login_user(user)
-            flash("Reset password Successfully!")
+            flash("Құпия сөзді қалпына келтіру сәтті өтті!")
         else:
-            flash("Reset password failed!")
+            flash("Құпия сөзді қалпына келтіру орындалмады!")
             redirect(url_for("auth.main"))
         return redirect(url_for('auth.login'))
     return render_template("auth/resetPassword.html", form=form)
